@@ -1,0 +1,33 @@
+body{
+    background-color:#c8bfbf;
+}
+
+.container{
+    margin-top:1.2em;
+}
+
+.ad-title-display-pls{
+    background-size:cover;
+    background-position: center center;
+    padding-bottom:1em;
+}
+
+.ad-title-display-pls .container{
+    margin-top:0;
+}
+
+.ad-title-display-pls h1, .ad-title-display-pls p{
+    color:white;
+    text-shadow: 3px 3px 3px rgba(0,0,0,0.5);
+}
+
+.carousel-caption{
+    text-shadow: 3px 3px 3px rgba(0,0,0,0.5);
+}
+
+footer{
+    position: fixed;
+    bottom:0;
+    width:100%;
+    color:#f3efef;
+}
