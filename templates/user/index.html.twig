@@ -25,7 +25,7 @@
                 <h2>Les annonces de {{user.fullName}}</h2>
             </div>
         {% if user.ads | length > 0 %}
-            <div class="container">
+            <div class="row">
                 {% for ad in user.ads %}
                     {% include 'ad/_ad.html.twig' %}
                 {% endfor %}

@@ -10,6 +10,8 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class AdController extends AbstractController
@@ -35,6 +37,7 @@ class AdController extends AbstractController
     /**
     * Permet de créer une annonce
     * @Route("ads/new",name="ads_create")
+    * @IsGranted("ROLE_USER")
     * @return Response
     */
     public function create(Request $request,EntityManagerInterface $entityManager)
@@ -99,7 +102,10 @@ class AdController extends AbstractController
     /**
      * Permet d'éditer et de modif un article
      * @Route("/ads/{slug}/edit", name="ads_edit")
-     *
+     * @Security("is_granted('ROLE_USER') and user == ad.getAuthor()",message="Cette annonce n'a pas été publiée par vous, vous ne pouvez pas y apporter de modifications.")
+     * @param Ad $ad
+     * @param Request $request
+     * @param EntityManagerInterface $entityManager
      * @return Response
      */
     public function edit(Ad $ad,Request $request,EntityManagerInterface $entityManager)
@@ -116,8 +122,6 @@ class AdController extends AbstractController
                 $entityManager->persist($image);
             }
 
-            $ad->setAuthor($this->getUser()->getId());
-
             $entityManager->persist($ad);
             $entityManager->flush();
 
@@ -127,6 +131,24 @@ class AdController extends AbstractController
         }
 
         return $this->render('ad/edit.html.twig',['form'=>$form->createView(),'ad'=>$ad]);
+    }
+
+    /**
+     * Suppression d'une annonce
+     * @Route("/ads/{slug}/delete",name="ads_delete")
+     * @Security("is_granted('ROLE_USER') and user == ad.getAuthor()",message="Cette annonce n'a pas été publiée par vous, vous ne pouvez pas y apporter de modifications.")
+     *
+     * @param Ad $ad
+     * @param EntityManagerInterface $entityManager
+     * @return void
+     */
+    public function delete(Ad $ad,EntityManagerInterface $entityManager)
+    {
+        $entityManager->remove($ad);
+        $entityManager->flush();
+        $this->addFlash("success","L'annonce <em>{$ad->getTitle()}</em> a bien été supprimée");
+
+        return $this->redirectToRoute('ads_list');
     }
 
 }
