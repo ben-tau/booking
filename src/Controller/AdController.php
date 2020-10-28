@@ -14,6 +14,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class AdController extends AbstractController
 {
+    
     /**
      * Permet d'afficher une liste d'annonces
      * @Route("/ads", name="ads_list")
@@ -64,6 +65,8 @@ class AdController extends AbstractController
                 $entityManager->persist($image);
             }
 
+            $ad->setAuthor($this->getUser());
+
             $entityManager->persist($ad);
             $entityManager->flush();
 
@@ -72,7 +75,9 @@ class AdController extends AbstractController
             return $this->redirectToRoute('ads_single',['slug' => $ad->getSlug()]);
         }
 
-        return $this->render('ad/new.html.twig',['form'=>$form->createView()]);
+        return $this->render('ad/new.html.twig',[
+            'form' => $form->createView()
+            ]);
     }
 
     /**
@@ -104,11 +109,14 @@ class AdController extends AbstractController
 
         if($form->isSubmitted() && $form->isValid())
         {
+
             foreach($ad->getImages() as $image)
             {
                 $image->setAd($ad);
                 $entityManager->persist($image);
             }
+
+            $ad->setAuthor($this->getUser()->getId());
 
             $entityManager->persist($ad);
             $entityManager->flush();
