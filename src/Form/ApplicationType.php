@@ -23,4 +23,23 @@ use Symfony\Component\Form\AbstractType;
             ],
                 $options);
         }
+
+        /**
+         * Permet d'avoir la config de base d'un champ de type datepicker
+         *
+         * @param string $label
+         * @param string $placeholder
+         * @param array $options
+         * @return array
+         */
+        protected function getConfigurationDatepickerInput($label,$options=[])
+        {
+            return array_merge(
+            [
+                'label' => $label,
+                'attr' => ['class' => 'js-datepicker',
+                           'placeholder' => 'Sélectionnez une date']
+            ],
+                $options);
+        }
     }

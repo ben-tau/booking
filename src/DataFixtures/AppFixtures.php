@@ -7,6 +7,7 @@ use Faker\Factory;
 use App\Entity\Role;
 use App\Entity\User;
 use App\Entity\Image;
+use App\Entity\Booking;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
@@ -29,7 +30,7 @@ class AppFixtures extends Fixture
         $adminRole->setTitle('ROLE_ADMIN');
         $manager->persist($adminRole);
 
-        //Cr"ation d'un user spécial avec un role admin
+        //Création d'un user spécial avec un role admin
 
         $adminUser = new User();
         $adminUser->setFirstname('Admin')
@@ -77,8 +78,8 @@ class AppFixtures extends Fixture
 
         // ANNONCES
 
-        for($i=1; $i<=30; $i++){
-
+        for($i=1; $i<=30; $i++)
+        {
             $ad = new Ad();
             
             $title = $faker->sentence();
@@ -113,6 +114,34 @@ class AppFixtures extends Fixture
                 // on sauvegarde
 
                 $manager->persist($image);
+
+                // gestion des réservations
+
+                for($k=1;$k<=mt_rand(0,5);$k++)
+                {
+                    $booking = new Booking();
+                    $createdAt = $faker->dateTimeBetween('-6 months');
+                    $startDate = $faker->dateTimeBetween('-3 months');
+                    $duration = mt_rand(3,10);
+                    $endDate = (clone $startDate)->modify("+ $duration days");
+                    $amount = $ad->getPrice() * $duration;
+
+                    // trouver le booker
+                    $booker = $users[mt_rand(0,count($users)-1)];
+                    $comment = $faker->paragraph();
+
+                    //config de la réservation
+                    $booking->setBooker($booker)
+                            ->setAd($ad)
+                            ->setStartDate($startDate)
+                            ->setEndDate($endDate)
+                            ->setCreatedAt($createdAt)
+                            ->setAmount($amount) 
+                            ->setComment($comment)       
+                    ;
+
+                    $manager->persist($booking);
+                }
             }
         }
 
