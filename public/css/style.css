@@ -1,5 +1,6 @@
 body{
     background-color:#c8bfbf;
+    color:#232323;
 }
 
 a{
@@ -49,6 +50,11 @@ a:hover{
     max-height: 32px;
 }
 
+.avatar-xs{
+    max-width: 26px;
+    max-height: 26px;
+}
+
 footer{
     position: fixed;
     bottom:0;
@@ -59,4 +65,26 @@ footer{
 .datepicker table tr td.disabled, .datepicker table tr td.disabled:hover{
     color:indianred!important;
     text-decoration:line-through;
+}
+
+blockquote{
+    font-style:oblique;
+    color:rgb(54, 49, 49);
+}
+
+.rating i{
+    color:goldenrod;
+}
+
+small{
+    text-transform: initial;
+}
+
+.rounded{
+    border-radius: 1em !important;
+}
+
+.table-primary{
+    background:#232323;
+    color:#f1f1f1;
 }

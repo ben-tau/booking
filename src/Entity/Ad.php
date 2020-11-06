@@ -12,6 +12,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use App\Entity\Comment;
 
 /**
  * @ORM\Entity(repositoryClass=AdRepository::class)
@@ -84,10 +85,16 @@ class Ad
      */
     private $bookings;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="ad", orphanRemoval=true)
+     */
+    private $comments;
+
     public function __construct()
     {
         $this->images = new ArrayCollection();
         $this->bookings = new ArrayCollection();
+        $this->comments = new ArrayCollection();
     }
 
     /**
@@ -104,6 +111,35 @@ class Ad
         }
     }
 
+    /**
+     * Permet de récup le comm d'un auteur par rapport à une annonce
+     *
+     * @param User $author
+     * @return Comment|null
+     */
+    public function getCommentFromAuthor(User $author)
+    {
+        foreach($this->comments as $comment)
+        {
+            if($comment->getAuthor() === $author) return $comment;
+        }
+        return null;
+    }
+
+    public function getAverageRatings()
+    {
+        // calcul de la somme des notes
+
+        $sum = array_reduce($this->comments->toArray(),function($total,$comment){
+            // on retourne le total + la note de chq commentaire
+            return $total + $comment->getRating();
+        }, 0);
+
+        // diviser le total par le nb de notes
+
+        if(count($this->comments) > 0) return $sum / count($this->comments);
+        return 0;
+    }
 
     public function getNotAvailableDays()
     {
@@ -285,6 +321,37 @@ class Ad
             // set the owning side to null (unless already changed)
             if ($booking->getAd() === $this) {
                 $booking->setAd(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Comment[]
+     */
+    public function getComments(): Collection
+    {
+        return $this->comments;
+    }
+
+    public function addComment(Comment $comment): self
+    {
+        if (!$this->comments->contains($comment)) {
+            $this->comments[] = $comment;
+            $comment->setAd($this);
+        }
+
+        return $this;
+    }
+
+    public function removeComment(Comment $comment): self
+    {
+        if ($this->comments->contains($comment)) {
+            $this->comments->removeElement($comment);
+            // set the owning side to null (unless already changed)
+            if ($comment->getAd() === $this) {
+                $comment->setAd(null);
             }
         }
 

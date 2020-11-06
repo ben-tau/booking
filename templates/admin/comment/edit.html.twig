@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier un commentaires{% endblock %}
+
+{% block body %}
+    <main class="container-fluid">
+        <h1 class="my-3 pl-5 text-center">Modification du commentaire n° {{comments.id}}</h1>
+        <div class="rom mt-5">
+            <div class="col-8 offset-2 p-5 alert alert-info">
+                <p>Annonce liée : {{comments.ad.title}}</p>
+                <p>Auteur : {{comments.ad.author.fullName}}</p>
+                <p>Annonce liée : {{comments.createdAt|date('d/m/Y H:i')}}</p>
+                <p>Annonce liée : {{comments.rating}}</p>
+            </div>
+            <div class="col-8 offset-2 px-5">
+                {{form_start(form)}}
+                {{form_widget(form)}}
+                <button type="submit" class="btn btn-success"><i class="fa fa-check"></i> Enregistrer les modifications</button>
+                {{form_end(form)}}
+            </div>
+        </div>
+    </main>
+{% endblock %}

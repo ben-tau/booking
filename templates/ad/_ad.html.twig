@@ -15,8 +15,12 @@
                                 <a href="{{path('ads_edit',{'slug':ad.slug})}}" class="btn btn-info">Modifier</a> 
                             {% endif %}   
                     </div>
-                    <div class="card-footer text-muted">
+                    <div class="card-footer text-muted text-center">
+                    {% if ad.comments|length > 0 %}
+                        {% include 'inc/rating.html.twig' with {'rating':ad.averageRatings} %} sur {{ad.comments|length}} avis.
+                    {% else %}
                         <span>Pas encore noté</span>
+                    {% endif %}
                     </div>
                 </div>
             </div> 

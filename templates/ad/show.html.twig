@@ -45,6 +45,36 @@
                         <span class="sr-only">Suivant</span>
                     </a>
                 </div>
+                <hr>
+                {% if ad.comments|length > 0 %}
+                    <h3>Commentaire des voyageurs</h3>
+                    <div class="alertr alert-info">
+                        <h6 class="alert-heading h5">
+                            <div class="row align-items-center">
+                                <div class="col-7">
+                                    Note globale des voyageurs : <br>
+                                </div>
+                                <div class="col">
+                                    {% include 'inc/rating.html.twig' with {'rating':ad.averageRatings} %} <br>
+                                    <small>Cette moyenne est calculée sur {{ad.comments|length}} avis.</small>
+                                </div>
+                            </div>
+                            
+                            
+                        </h4>
+                    </div>
+                    {% for comment in ad.comments %}
+                        <div class="bg-light-rounded">
+                            <p><strong>{{comment.author.fullName}}</strong> a dit: </p>
+                            <blockquote>{{comment.content}}</blockquote>
+                            <p>Note donnée : <strong>{{comment.rating}}</strong>
+                                {% include 'inc/rating.html.twig' with {'rating':comment.rating} %}
+                            </p>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <h3 class="h6">Cette annonce n'a pa encore de commentaire</h3>
+                {% endif %}
             </div>
             <div class="col">
             {% set a = ad.author %}
