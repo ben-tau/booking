@@ -1,17 +1,19 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello AdController!{% endblock %}
+{% block title %}Nos annonces{% endblock %}
 
 {% block body %}
 
 <main class="container">
-    <h1 class="mt-5 mb-3">{{ controller_name }}</h1>
+    <h1 class="mt-5 mb-3">Nos annonces</h1>
     <div class="row">
-        {% for ad in ads %}
+        {% for ad in pagination.data %}
 
             {% include 'ad/_ad.html.twig' %}
         {% endfor %}  
     </div>
+    {{pagination.display()}}
+    <br><br>
 </main>
 
 

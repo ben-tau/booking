@@ -4,6 +4,8 @@
 
     namespace App\Controller;
     
+    use App\Repository\AdRepository;
+    use App\Repository\UserRepository;
     use Symfony\Component\HttpFoundation\Response;
     use Symfony\Component\Routing\Annotation\Route;
     use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -16,10 +18,12 @@
          * @Route("/", name="homepage")
          * 
          */
-        public function home()
+        public function home(AdRepository $adRepo,UserRepository $userRepo)
         {
-            $noms = ['Durand'=>'visiteur','Dupont'=>'contributeur','Taupiac'=>'admin'];
-            return $this->render('home.html.twig',['titre' => 'Titre de la page','acces' => 'admin','tableau' => $noms]);
+            return $this->render('home.html.twig',[
+                'ads' => $adRepo->findBestAds(6),
+                'users' => $userRepo->findBestUsers(2)
+            ]);
         }
 
 

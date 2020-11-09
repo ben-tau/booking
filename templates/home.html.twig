@@ -5,7 +5,7 @@
     <main class="container">
 
         <div class="jumbotron mt-3">
-            <h1 class="h1">{{titre}}</h1>
+            <h1 class="h1">Booking</h1>
             <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
             <hr class="my-4">
             <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
@@ -14,99 +14,27 @@
             </p>
         </div>
 
-        <h3 class="h1 mt-3 mb-4">Offres spéciales</h3>
+        <h3 class="h1 mt-3 mb-4">Annonces les mieux notées</h3>
         <section class="row">
-            <article class="col-md-4">
-                <div class="card mb-3">
-                    <h3 class="card-header">3 chambres, <strong>50 &euro;/nuit</strong></h3>
-                    <img style="height: 200px; width: 100%; display: block;" src="https://placeimg.com/640/480/people" alt="Card image">
-                    <div class="card-body">
-                        <h5 class="card-title">Loft à Londres</h5>
-                        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Pariatur, nulla! Voluptate voluptatem iure labore alias libero magni officia deserunt perspiciatis, reiciendis praesentium hic, at veritatis cupiditate numquam quam, facere esse!</p>
-                        <a href="#" class="btn btn-primary">+ d'infos</a>
-                    </div>
-                    <div class="card-body">
-                        
-                    </div>
-                    <div class="card-footer text-muted">
-                        Pas encore noté
-                    </div>
-                </div>
-            </article>
-            <article class="col-md-4">
-                <div class="card mb-3">
-                    <h3 class="card-header">5 chambres, <strong>100 &euro;/nuit</strong></h3>
-                    <img style="height: 200px; width: 100%; display: block;" src="https://placeimg.com/640/480/nature" alt="Card image">
-                    <div class="card-body">
-                        <h5 class="card-title">Maison dans le Maine</h5>
-                        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Pariatur, nulla! Voluptate voluptatem iure labore alias libero magni officia deserunt perspiciatis, reiciendis praesentium hic, at veritatis cupiditate numquam quam, facere esse!</p>
-                        <a href="#" class="btn btn-primary">+ d'infos</a>
-                    </div>
-                    <div class="card-body">
-                        
-                    </div>
-                    <div class="card-footer text-muted">
-                        Pas encore noté
-                    </div>
-                </div>
-            </article>
-            <article class="col-md-4">
-                <div class="card mb-3">
-                    <h3 class="card-header">2 chambres, <strong>45 &euro;/nuit</strong></h3>
-                    <img style="height: 200px; width: 100%; display: block;" src="https://placeimg.com/640/480/people" alt="Card image">
-                    <div class="card-body">
-                        <h5 class="card-title">Appartement à Cannes</h5>
-                        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Pariatur, nulla! Voluptate voluptatem iure labore alias libero magni officia deserunt perspiciatis, reiciendis praesentium hic, at veritatis cupiditate numquam quam, facere esse!</p>
-                        <a href="#" class="btn btn-primary">+ d'infos</a>
-                    </div>
-                    <div class="card-body">
-                        
-                    </div>
-                    <div class="card-footer text-muted">
-                        Pas encore noté
-                    </div>
-                </div>
-            </article>
+            {% for data in ads %}
+                {% include 'ad/_ad.html.twig' with {'ad':data.annonce} %}
+            {% endfor %}
         </section>
 
         <h3 class="h1 mt-3 mb-4">Nos meilleurs annonceurs</h3>
         <section class="row">
-            <article class="col-md-3">
-                <div class="card-body">
-                <img src="http://placehold.it/64x64" alt="avatar de ..." class="float-left mr-3">
-                    <h3 class="card-header">John Doe</h3>
-                    <h5 class="card-title">Appartement à Cannes</h5>
-                    <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Pariatur, nulla! Voluptate voluptatem iure labore alias libero magni officia deserunt perspiciatis, reiciendis praesentium hic, at veritatis cupiditate numquam quam, facere esse!</p>
-                    <a href="#" class="btn btn-primary">+ d'infos</a>
-                </div>    
-            </article>
-            <article class="col-md-3">
-                <div class="card-body">
-                <img src="http://placehold.it/64x64" alt="avatar de ..." class="float-left mr-3">
-                    <h3 class="card-header">John Doe</h3>
-                    <h5 class="card-title">Appartement à Cannes</h5>
-                    <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Pariatur, nulla! Voluptate voluptatem iure labore alias libero magni officia deserunt perspiciatis, reiciendis praesentium hic, at veritatis cupiditate numquam quam, facere esse!</p>
-                    <a href="#" class="btn btn-primary">+ d'infos</a>
-                </div>    
-            </article>
-            <article class="col-md-3">
-                <div class="card-body">
-                <img src="http://placehold.it/64x64" alt="avatar de ..." class="float-left mr-3">
-                    <h3 class="card-header">John Doe</h3>
-                    <h5 class="card-title">Appartement à Cannes</h5>
-                    <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Pariatur, nulla! Voluptate voluptatem iure labore alias libero magni officia deserunt perspiciatis, reiciendis praesentium hic, at veritatis cupiditate numquam quam, facere esse!</p>
-                    <a href="#" class="btn btn-primary">+ d'infos</a>
-                </div>    
-            </article>
-            <article class="col-md-3">
-                <div class="card-body">
-                <img src="http://placehold.it/64x64" alt="avatar de ..." class="float-left mr-3">
-                    <h3 class="card-header">John Doe</h3>
-                    <h5 class="card-title">Appartement à Cannes</h5>
-                    <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Pariatur, nulla! Voluptate voluptatem iure labore alias libero magni officia deserunt perspiciatis, reiciendis praesentium hic, at veritatis cupiditate numquam quam, facere esse!</p>
-                    <a href="#" class="btn btn-primary">+ d'infos</a>
-                </div>    
-            </article>
+            {% for data in users %}
+                <article class="col">
+                    <div class="card-mb-3 text-center d-flex flex-column align-items-center justify-content-center">
+                        <h3 class="card-header h6">{{data.user.fullName}}</h3>
+                        <div class="card-body text-center d-flex flex-column align-items-center justify-content-center">
+                            <img src="{{data.user.avatar}}" alt="avatar de {{data.user.fullName}}" class="float-left mr-3 avatar mb-2">
+                            <p>{{data.user.introduction}}</p>
+                            <a href="{{path('user_show',{'slug':data.user.slug})}}" class="btn btn-warning text-primary">+ d'infos</a>
+                        </div>
+                    </div>    
+                </article>
+            {% endfor %}
         </section>
     </main>
     {% endblock %}
